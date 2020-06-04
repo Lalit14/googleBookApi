@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Books Api </title>
+  </head>
+  <body>
+      <div class="container">
+            <h1>welcome to Books APi</h1>
+            <nav class="navbar navbar-light bg-light">
+                <form class="form" id='myform'>
+                  <input class="form-control mr-sm-2" type="search" id="book" placeholder="Entter book name" aria-label="Search"><br>
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Book</button>
+                </form>
+              </nav>
+
+
+<div id="result" class="text-center">
+
+
+    
+</div>
+
+
+
+      </div>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+      <script >
+$(document).ready(function(){
+
+$("#myform").submit(function(e){
+e.preventDefault();
+    console.log("clicked submit")
+var txt=$("#book").val();
+    console.log(txt)
+    if(txt==""){
+        alert("please enter something")
+
+    }
+    else{
+var url='';
+var img='';
+var title='';
+var author='';
+var link='';
+var google="https://www.googleapis.com/books/v1/volumes?q="+txt;
+$.getJSON(google,function(response){
+console.log("hello worlds")
+console.log(response)
+for(i=1;i<response.items.length+1;i++){
+  title=response.items[i-1].volumeInfo.title; // correct line finally
+  author=response.items[i-1].volumeInfo.authors[0]; // correct line finally
+  link=response.items[i-1].volumeInfo.infoLink; // correct line finally
+img=response.items[i-1].volumeInfo.imageLinks.thumbnail;
+  console.log(link)
+  // var title='';
+  // link.attr('src',img);
+
+// title=$(' '+response.items[i].volumeInfo.title+' ');
+// console.log(title)
+console.log(title)
+console.log(author)
+
+$("#result").append("<b><h2>"+i+""+'.'+""+title+"</h2></b><br>")
+$("#result").append("<b> BY :"+author+"</b><br>")
+// $("#result").append("<b> BY :"+img+"</b><br>")
+$("#result").append("<img src="+img+" ><br><br>")
+$("#result").append("<a href="+link+" > <button>Read More</a></button><br><br><br>")
+
+
+// document.getElementById("result").innerHTML=title;
+// document.getElementById("result").innerHTML=author;
+// title.appendTo("#result")
+// title.appendTo("#result").response.items[i].volumeInfo.title
+// title.appendTo("#result");
+// title='';
+}
+
+
+})
+// VolumeEntry bookInfo=volumeFeed.getEntries().get(0);
+// bookInfo.getDescriptions()
+// $.getJSON("https://www.googleapis.com/books/v1/volumes?q="+txt);
+// console.log(responseJSON)
+// console.log(response)
+// console.log(bookInfo.getDescriptions())
+// for(i=0;i<Response)
+// console.log(k.items[i].volumeInfo.title);
+// window.print(k)
+// k.innerHTML();
+// document.write(k);   
+// console.log(k)
+ }
+  })
+
+})
+
+
+
+      </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
